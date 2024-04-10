@@ -1,3 +1,4 @@
+<#
 $credential = Get-Credential
 $server =""
 $ESXi = "192.168.8.116"
@@ -29,10 +30,7 @@ Get-VirtualSwitch -Name vSwitch0| Get-VirtualPortGroup
 New-virtualswitch -vmhost $ESXi -name vss01 -NumPorts 256
 Get-VirtualSwitch -VMHost $ESXi -Name vss01 | Set-VirtualSwitch -Nic vmnic1
 Remove-VirtualSwitch "vss01" -Confirm:$false
-
-Connect
-
-
+#Connect
 #user creation
 Esxcli system account list
 Esxcli system account remove
@@ -46,15 +44,11 @@ $esxcli.system.permissions.list.Invoke()
 $esxcli.system.permissions.set.Invoke(@{id= „Test2”; role= „ReadOnly”})
 $esxcli.system.permission.unset.Invoke (@{id= „vpxuser”})
 $esxcli.system.account.remove.Invoke(@{id= „Test2”})
-
 $esxcli.system.account.list.Invoke()
 $esxcli.system.permission.list.Invoke()
 $esxcli.system.account.add.Invoke(@{id= "Test2"; password= 'StrongPass123!' ; passwordconfirmation= 'StrongPass123!'})
 $esxcli.system.permission.set.Invoke(@{id= „Test2”; role= „ReadOnly”})
-
 $esxcli.system.permission.unset.Invoke(@{id= „Test2”})
-
-
 $esxcli = Get-EsxCli -VMHost MyEsx -V2
 $sAccount = $esxcli.system.account.add.CreateArgs()
 $sAccount.Item('description') = 'Test account'
@@ -63,3 +57,5 @@ $sAccount.Item('passwordconfirmation') = 'BlackFriday17!'
 $sAccount.Item('id') = 'a_guard'
 $esxcli.system.account.add.Invoke($sAccount)
 #test drugiej linijki
+
+#>
