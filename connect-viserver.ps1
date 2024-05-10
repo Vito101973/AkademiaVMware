@@ -1,6 +1,6 @@
-$vCenter = "192.168.8.121"
+$vcenter = "192.168.8.121"
 $error.clear()
-connect-viserver $vcenter -user root -password Fujitsu2021! -ErrorAction SilentlyContinue
+Connect-VIServer $vcenter -user root -password Fujitsu2021! -ErrorAction SilentlyContinue
 $serverlist = $global:DefaultVIServer
 if($serverlist -eq $null) {
    write-host "No connected servers."
